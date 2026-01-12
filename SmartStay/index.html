@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}SmartStay - Welcome{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-4">Welcome to SmartStay</h1>
+        <p class="lead mb-4">Your Complete Hotel Booking & Staff Management Solution</p>
+        {% if not session.user_id %}
+            <a href="{{ url_for('login') }}" class="btn btn-light btn-lg me-3">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+        {% endif %}
+        <a href="{{ url_for('demo_oop') }}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-code"></i> View OOP Demo
+        </a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">System Features</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 card-hover shadow">
+                    <div class="card-body text-center">
+                        <i class="fas fa-bed fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Room Management</h5>
+                        <p class="card-text">View available rooms, check availability, and manage room inventory efficiently.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 card-hover shadow">
+                    <div class="card-body text-center">
+                        <i class="fas fa-calendar-check fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Booking System</h5>
+                        <p class="card-text">Easy room booking and cancellation with real-time availability tracking.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 card-hover shadow">
+                    <div class="card-body text-center">
+                        <i class="fas fa-users fa-3x text-info mb-3"></i>
+                        <h5 class="card-title">Staff Management</h5>
+                        <p class="card-text">Comprehensive staff management with role-based access control.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- User Roles Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">User Roles & Permissions</h2>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">
+                            <i class="fas fa-user-shield"></i> Administrator
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Manage all users</li>
+                            <li><i class="fas fa-check text-success"></i> Manage rooms</li>
+                            <li><i class="fas fa-check text-success"></i> View all bookings</li>
+                            <li><i class="fas fa-check text-success"></i> Manage staff</li>
+                            <li><i class="fas fa-check text-success"></i> View reports</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">
+                            <i class="fas fa-concierge-bell"></i> Receptionist
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Manage bookings</li>
+                            <li><i class="fas fa-check text-success"></i> View rooms</li>
+                            <li><i class="fas fa-check text-success"></i> Check-in guests</li>
+                            <li><i class="fas fa-check text-success"></i> Check-out guests</li>
+                            <li><i class="fas fa-times text-danger"></i> Manage staff</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">
+                            <i class="fas fa-user"></i> Guest
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> View rooms</li>
+                            <li><i class="fas fa-check text-success"></i> Book rooms</li>
+                            <li><i class="fas fa-check text-success"></i> Cancel bookings</li>
+                            <li><i class="fas fa-check text-success"></i> View own bookings</li>
+                            <li><i class="fas fa-times text-danger"></i> Manage others</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">
+                            <i class="fas fa-user-tie"></i> Staff
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> View schedule</li>
+                            <li><i class="fas fa-check text-success"></i> Update profile</li>
+                            <li><i class="fas fa-check text-success"></i> View tasks</li>
+                            <li><i class="fas fa-times text-danger"></i> Access bookings</li>
+                            <li><i class="fas fa-times text-danger"></i> Manage rooms</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Technology Stack -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Technology Stack</h2>
+        <div class="row text-center">
+            <div class="col-md-3 mb-3">
+                <div class="p-3">
+                    <i class="fab fa-python fa-3x text-primary mb-2"></i>
+                    <h5>Python</h5>
+                    <p class="text-muted">Backend Language</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="p-3">
+                    <i class="fas fa-flask fa-3x text-success mb-2"></i>
+                    <h5>Flask</h5>
+                    <p class="text-muted">Web Framework</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="p-3">
+                    <i class="fas fa-database fa-3x text-info mb-2"></i>
+                    <h5>SQLite</h5>
+                    <p class="text-muted">Database</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="p-3">
+                    <i class="fab fa-bootstrap fa-3x text-warning mb-2"></i>
+                    <h5>Bootstrap</h5>
+                    <p class="text-muted">UI Framework</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
