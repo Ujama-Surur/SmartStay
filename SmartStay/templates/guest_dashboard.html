@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Guest Dashboard - SmartStay{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2><i class="fas fa-user"></i> Guest Dashboard</h2>
+    <p class="text-muted">Welcome back, {{ session.username }}!</p>
+    
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <h3>{{ stats.loyalty_points }}</h3>
+                    <small>Loyalty Points</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <h3>{{ stats.active_bookings }}</h3>
+                    <small>Active Bookings</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Quick Actions</h4>
+            <div class="list-group">
+                <a href="{{ url_for('rooms') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-bed"></i> Browse Available Rooms
+                </a>
+                <a href="{{ url_for('my_bookings') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-calendar-check"></i> My Bookings
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="fas fa-user-edit"></i> Edit Profile
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="fas fa-gift"></i> View Rewards
+                </a>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <h4>Guest Services</h4>
+            <div class="card">
+                <div class="card-body">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>
+                                    <i class="fas fa-concierge-bell text-primary"></i> 
+                                    Room Service
+                                </span>
+                                <span class="badge bg-success">Available</span>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>
+                                    <i class="fas fa-utensils text-warning"></i> 
+                                    Restaurant
+                                </span>
+                                <span class="badge bg-success">Open</span>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>
+                                    <i class="fas fa-swimming-pool text-info"></i> 
+                                    Pool & Spa
+                                </span>
+                                <span class="badge bg-success">Open</span>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>
+                                    <i class="fas fa-dumbbell text-success"></i> 
+                                    Fitness Center
+                                </span>
+                                <span class="badge bg-success">24/7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

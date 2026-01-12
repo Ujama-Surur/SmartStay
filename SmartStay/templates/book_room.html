@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Book Room - SmartStay{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2><i class="fas fa-calendar-plus"></i> Book Room {{ room.get_room_number() }}</h2>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Room Details</h5>
+                    <p>
+                        <strong>Room Number:</strong> {{ room.get_room_number() }}<br>
+                        <strong>Type:</strong> {{ room.get_room_type() }}<br>
+                        <strong>Capacity:</strong> {{ room.get_capacity() }} person(s)<br>
+                        <strong>Price per Night:</strong> {{ "{:,.0f}".format(room.get_price_per_night()) }} RWF
+                    </p>
+                </div>
+            </div>
+            
+            <form method="POST">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="check_in_date" class="form-label">Check-in Date</label>
+                            <input type="date" class="form-control" id="check_in_date" 
+                                   name="check_in_date" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="check_out_date" class="form-label">Check-out Date</label>
+                            <input type="date" class="form-control" id="check_out_date" 
+                                   name="check_out_date" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check"></i> Confirm Booking
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Booking Information</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-info-circle text-info"></i> Select your check-in and check-out dates</li>
+                        <li><i class="fas fa-calculator text-success"></i> Total amount will be calculated automatically</li>
+                        <li><i class="fas fa-credit-card text-warning"></i> Payment can be processed at reception</li>
+                        <li><i class="fas fa-times-circle text-danger"></i> Cancellation is allowed before check-in</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Set minimum date to today
+document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('check_in_date').setAttribute('min', today);
+    document.getElementById('check_out_date').setAttribute('min', today);
+    
+    // Ensure check-out date is after check-in date
+    document.getElementById('check_in_date').addEventListener('change', function() {
+        const checkInDate = new Date(this.value);
+        const minCheckOut = new Date(checkInDate);
+        minCheckOut.setDate(minCheckOut.getDate() + 1);
+        document.getElementById('check_out_date').setAttribute('min', minCheckOut.toISOString().split('T')[0]);
+    });
+});
+</script>
+{% endblock %}

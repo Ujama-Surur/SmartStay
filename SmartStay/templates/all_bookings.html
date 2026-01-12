@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}All Bookings - SmartStay{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2><i class="fas fa-calendar-alt"></i> All Bookings</h2>
+    
+    {% if bookings %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Guest</th>
+                        <th>Room</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Payment</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                        <tr>
+                            <td>#{{ booking[0] }}</td>
+                            <td>{{ booking[8] }}</td>
+                            <td>
+                                {{ booking[9] }} 
+                                <span class="badge bg-info">{{ booking[10] }}</span>
+                            </td>
+                            <td>{{ booking[3] }}</td>
+                            <td>{{ booking[4] }}</td>
+                            <td>{{ "{:,.0f}".format(booking[5]) }} RWF</td>
+                            <td>
+                                {% if booking[6] == 'confirmed' %}
+                                    <span class="badge bg-success">Confirmed</span>
+                                {% elif booking[6] == 'cancelled' %}
+                                    <span class="badge bg-danger">Cancelled</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ booking[6] }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if booking[7] == 'paid' %}
+                                    <span class="badge bg-success">Paid</span>
+                                {% else %}
+                                    <span class="badge bg-warning">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if booking[7] != 'paid' %}
+                                    <a href="{{ url_for('process_payment', booking_id=booking[0]) }}" 
+                                       class="btn btn-sm btn-success"
+                                       onclick="return confirm('Process payment for booking #{{ booking[0] }}?')">
+                                        <i class="fas fa-credit-card"></i> Process Payment
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted">Paid</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> No bookings found in the system.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

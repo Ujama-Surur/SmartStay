@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}My Bookings - SmartStay{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2><i class="fas fa-calendar-check"></i> My Bookings</h2>
+    
+    {% if bookings %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Room</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                        <th>Payment</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking_info in bookings %}
+                        {% set booking = booking_info.booking %}
+                        <tr>
+                            <td>#{{ booking.get_booking_id() }}</td>
+                            <td>
+                                {{ booking_info.room_number }} 
+                                <span class="badge bg-info">{{ booking_info.room_type }}</span>
+                            </td>
+                            <td>{{ booking.get_check_in_date() }}</td>
+                            <td>{{ booking.get_check_out_date() }}</td>
+                            <td>{{ "{:,.0f}".format(booking.get_total_amount()) }} RWF</td>
+                            <td>
+                                {% if booking.get_status() == 'confirmed' %}
+                                    <span class="badge bg-success">Confirmed</span>
+                                {% elif booking.get_status() == 'cancelled' %}
+                                    <span class="badge bg-danger">Cancelled</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ booking.get_status() }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if booking.get_payment_status() == 'paid' %}
+                                    <span class="badge bg-success">Paid</span>
+                                {% else %}
+                                    <span class="badge bg-warning">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if booking.get_status() == 'confirmed' %}
+                                    <a href="{{ url_for('cancel_booking', booking_id=booking.get_booking_id()) }}" 
+                                       class="btn btn-sm btn-danger"
+                                       onclick="return confirm('Are you sure you want to cancel this booking?')">
+                                        <i class="fas fa-times"></i> Cancel
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted">No actions</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> You don't have any bookings yet. 
+            <a href="{{ url_for('rooms') }}" class="alert-link">Browse available rooms</a> to make a booking.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
